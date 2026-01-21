@@ -7,8 +7,21 @@ class Vector:
     def inner(self, other):
         return np.vdot(self.data, other.data)
 
-v = Vector([1, 2j, 3])
-w = Vector([0, -1j, 4])
+    def norm(self):
+        return np.sqrt(self.inner(self))
 
-print(v.inner(w))
+    def __mul__(self, scalar):
+        return Vector(self.data * scalar)
+
+    def normalize(self):
+        return self * (1 / self.norm())
+    def __repr__(self):
+    return f"Vector({self.data})"
+
+
+
+v = Vector([1, 2j, 3])
+
+print(v.norm())
+print(v.normalize().norm())
 
