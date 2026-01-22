@@ -16,12 +16,19 @@ class Vector:
     def normalize(self):
         return self * (1 / self.norm())
     def __repr__(self):
-    return f"Vector({self.data})"
+        return f"Vector({self.data})"
+    def is_orthogonal(self, other, tol=1e-10):
+        return abs(self.inner(other)) < tol
+    def project_onto(self,other):
+        return other*(other.inner(self)*(1/(other.inner(other))))
+    def __sub__(self, other):
+        return Vector(self.data- other.data)
 
 
 
-v = Vector([1, 2j, 3])
+v = Vector([1, 1])
+w = Vector([0, 1])
 
-print(v.norm())
-print(v.normalize().norm())
 
+print(v.project_onto(w))
+print(v-w)
