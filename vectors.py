@@ -23,12 +23,24 @@ class Vector:
         return other*(other.inner(self)*(1/(other.inner(other))))
     def __sub__(self, other):
         return Vector(self.data- other.data)
+class Operator:
+    def __init__(self, matrix):
+        self.matrix = np.asarray(matrix, dtype=np.complex128)
+    def act_on(self,v):
+        return Vector(self.matrix @ v.data)
+    def __call__(self, v):
+        return self.act_on(v)
+
+
+H = (1/np.sqrt(2)) * np.array([[1, 1],
+                               [1, -1]])
+
+A = Operator(H)
+
+v = Vector([1, 0])
+
+print(A(v))
 
 
 
-v = Vector([1, 1])
-w = Vector([0, 1])
 
-
-print(v.project_onto(w))
-print(v-w)
