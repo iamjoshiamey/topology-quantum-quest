@@ -30,16 +30,31 @@ class Operator:
         return Vector(self.matrix @ v.data)
     def __call__(self, v):
         return self.act_on(v)
-
+    def adjoint(self):
+        return Operator(np.conjugate(np.transpose(self.matrix)))
+    @staticmethod #
+    def identity(n):
+        return Operator(np.eye(n))
+    def compose(self, other):
+        return Operator(self.matrix @ other.matrix)
+    def is_unitary(self, tol=1e-10):
+        n = self.matrix.shape[0]
+        I = Operator.identity(n).matrix
+        return np.allclose(self.adjoint().matrix @ self.matrix, I, atol=tol)
 
 H = (1/np.sqrt(2)) * np.array([[1, 1],
                                [1, -1]])
+Y= Operator(np.array([[1,0],[0,0]]))                              
 
 A = Operator(H)
 
 v = Vector([1, 0])
 
 print(A(v))
+print(A.adjoint().matrix)
+print(A.compose(A.adjoint()).matrix)
+print(Y.is_unitary())
+
 
 
 
