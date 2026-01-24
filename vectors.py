@@ -32,7 +32,7 @@ class Operator:
         return self.act_on(v)
     def adjoint(self):
         return Operator(np.conjugate(np.transpose(self.matrix)))
-    @staticmethod #
+    @staticmethod #python assumes dependence on self otherwise, since inside class
     def identity(n):
         return Operator(np.eye(n))
     def compose(self, other):
