@@ -23,6 +23,9 @@ class Vector:
         return other*(other.inner(self)*(1/(other.inner(other))))
     def __sub__(self, other):
         return Vector(self.data- other.data)
+    def __add__(self, other):
+        return Vector(self.data+ other.data)
+
 class Operator:
     def __init__(self, matrix):
         self.matrix = np.asarray(matrix, dtype=np.complex128)
